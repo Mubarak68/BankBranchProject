@@ -1,0 +1,28 @@
+﻿@model List<BankBranch>
+<h1>Bank Branchs List</h1>
+<table class="table">
+    <tr>
+        <td>Branch Name</td>
+        <td>Branch Location</td>
+        <td>Branch Manager</td>
+        <td>Bank ID</td>
+        <td>Employee Count</td>
+    </tr>
+
+ 
+
+    @foreach (var bankBranch in Model)
+    {
+        <tr>
+            <td><a href="/Bank/Details/@bankBranch.BankId">@bankBranch.LocationName</a></td>
+            <td>@bankBranch.LocationURL</td>
+            <td>@bankBranch.BranchManager</td>
+            <td>@bankBranch.BankId</td>
+            <td>@bankBranch.EmployeeCount</td>
+            
+        </tr>
+    }
+
+</table>
+
+<a href="/Bank/Create" class="btn btn-info">Add Branch</a>
