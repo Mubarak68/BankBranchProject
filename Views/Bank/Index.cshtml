@@ -15,7 +15,7 @@
     {
         <tr>
             <td><a href="/Bank/Details/@bankBranch.BankId">@bankBranch.LocationName</a></td>
-            <td>@bankBranch.LocationURL</td>
+            <td><a href="@bankBranch.LocationURL" target="_blank">Google Maps</a></td>
             <td>@bankBranch.BranchManager</td>
             <td>@bankBranch.BankId</td>
             <td>@bankBranch.EmployeeCount</td>
@@ -25,4 +25,4 @@
 
 </table>
 
-<a href="/Bank/Create" class="btn btn-info">Add Branch</a>
+<a class="btn btn-info" href="Bank/Create">Add Branch</a>

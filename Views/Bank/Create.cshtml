@@ -1,20 +1,34 @@
-﻿<h1>Add Branch</h1>
-<form method="post" action="/Bank/Create">
+﻿@model NewBranchForm
+<h1>Add Branch</h1>
+@*     <form class="row g-3" method="post" action="/Bank/Create">
     <tr>
-    <div>
-        <label for="name">Location Name: </label>
-        <input type="text" id="LocationName" name="locationName" required />
+        <div class="col-12">
+            <div>
+            <label for="name" class="form-label">Location Name: </label>
+                <input type="text" id="LocationName" name="locationName" required placeholder="Add The Branch Name" />
     </div>
 
-    <div>
-        <label for="name">LocationURL: </label>
-        <input type="text" id="LocationURL" name="locationURL" required />
+        <div class="col-12">
+            <div>
+            <label for="name" class="form-label">LocationURL: </label>
+                    <input type="text" id="LocationURL" name="locationURL" required placeholder="Add The Branch Location" />
     </div>
 
-    <div>
-        <label for="name">Employee Count: </label>
-        <input type="text" id="EmployeeCount" name="employeeCount" required />
+        <div class="col-12">
+            <div>
+            <label for="name" class="form-label">Employee Count: </label>
+        <input type="text" id="EmployeeCount" name="employeeCount" required placeholder="Employee count"/>
     </div>
-    </tr>
+        <div class="col-12">
+            <div>
+            <label for="name" class="form-label">Manager Name: </label>
+            <input type="text" id="BranchManager" name="branchManager" required placeholder="Manager Name"/>
+        </div>
+    </tr> *@
+@using (Html.BeginForm("Create", "Bank", FormMethod.Post))
+{
+    @Html.EditorForModel()
     <button type="submit">Add</button>
-</form>
+    }
+    
+@* </form> *@

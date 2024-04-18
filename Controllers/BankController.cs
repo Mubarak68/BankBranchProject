@@ -72,16 +72,33 @@ namespace Bank_Branch.Controllers
             var locationURL = form["LocationURL"];
             var branchManager = form["BranchManager"];
             var employeeCount = form["EmployeeCount"];
-
-            bankBranches.Add(new BankBranch()
+            if (ModelState.IsValid)
             {
-                LocationName = locationName,
-                LocationURL = locationURL,
-                BranchManager = branchManager,
-                EmployeeCount = int.Parse(employeeCount)
-            });
+                bankBranches.Add(new BankBranch
+                {
+                    BankId = bankBranches.Max(r => r.BankId) + 1,
+                    LocationName = locationName,
+                    LocationURL = locationURL,
+                    BranchManager = branchManager,
+                    EmployeeCount = int.Parse(employeeCount)
+                });
+            }
+            else
+            {
+                return View(form);
+            }
+           
+
+            //bankBranches.Add(new BankBranch()
+            //{
+            //    LocationName = locationName,
+            //    LocationURL = locationURL,
+            //    BranchManager = branchManager,
+            //    EmployeeCount = int.Parse(employeeCount)
+            //});
             return RedirectToAction("Index");
         }
-
+     
+        }
     }
-}
+
