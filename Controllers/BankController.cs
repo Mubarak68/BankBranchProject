@@ -31,7 +31,7 @@ namespace Bank_Branch.Controllers
 
                 if (!string.IsNullOrEmpty(searchTerm))
                 {
-                    branches = branches.Where(b => b.LocationName.StartsWith(searchTerm));
+                    branches = branches.Where(m => m.LocationName.StartsWith(searchTerm));
                 }
 
                 var data = branches.ToList();
@@ -48,13 +48,19 @@ namespace Bank_Branch.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            var form = new EditBranch();
             var context = new BankContext();
             var banks = context.bankBranchTable.SingleOrDefault(a => a.BankId == id);
             if (banks == null)
             {
                 return RedirectToAction("Index");
             }
-            return View(banks);
+            form.BankId = banks.BankId;
+            form.LocationURL = banks.LocationURL;
+            form.LocationName = banks.LocationName;
+            form.BranchManager = banks.BranchManager;
+            form.EmployeeCount = banks.EmployeeCount;
+            return View(form);
         }
         [HttpPost]
         public IActionResult Create(NewBranchForm form)
@@ -91,24 +97,28 @@ namespace Bank_Branch.Controllers
             //});
             return RedirectToAction("Index");
         }
+
+
         [HttpPost]
-        public IActionResult Edit(IFormCollection form, int id)
+        public IActionResult Edit(EditBranch form, int id)
         {
             var context = new BankContext();
 
-            var locationName = form["LocationName"];
-            var locationURL = form["LocationURL"];
-            var branchManager = form["BranchManager"];
-            var employeeCount = form["EmployeeCount"];
+            var bankId = form.BankId;
+            var locationName = form.LocationName;
+            var locationURL = form.LocationURL;
+            var branchManager = form.BranchManager;
+            var employeeCount = form.EmployeeCount;
             if (ModelState.IsValid)
             {
                 var bank = context.bankBranchTable.Find(id);
                if (bank != null)
                 {
+                    bank.BankId = bankId;
                     bank.LocationName = locationName;
                     bank.LocationURL = locationURL;
                     bank.BranchManager = branchManager;
-                    bank.EmployeeCount = int.Parse(employeeCount);
+                    bank.EmployeeCount = employeeCount;
                     context.SaveChanges();
                 }
                

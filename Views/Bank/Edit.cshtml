@@ -1,5 +1,5 @@
-﻿@model BankBranch
-<div class="container">
+﻿@model EditBranch
+@* <div class="container">
     <h2>Edit Branch</h2>
     <form method="post">
         <div class="form-group">
@@ -21,4 +21,10 @@
         <button type="submit" class="btn btn-primary">Save</button>
         <a class="btn btn-secondary" asp-action="Index">Cancel</a>
     </form>
-</div>
+</div> *@
+
+@using (Html.BeginForm("Edit", "Bank", FormMethod.Post))
+{
+    @Html.EditorForModel()
+    <button type="submit">Edit</button>
+}
