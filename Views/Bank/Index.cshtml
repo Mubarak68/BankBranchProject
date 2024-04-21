@@ -1,5 +1,11 @@
 ﻿@model List<BankBranch>
 <h1>Bank Branchs List</h1>
+<form method="get" action="@Url.Action("search","Bank")">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search.." name="searchTerm" />
+        <button class="btn btn-outline-secondary" type="sumbit">Search</button>
+    </div>
+</form>
 <table class="table">
     <tr>
         <td>Branch Name</td>
@@ -7,6 +13,7 @@
         <td>Branch Manager</td>
         <td>Bank ID</td>
         <td>Employee Count</td>
+        
     </tr>
 
  
@@ -19,10 +26,13 @@
             <td>@bankBranch.BranchManager</td>
             <td>@bankBranch.BankId</td>
             <td>@bankBranch.EmployeeCount</td>
+            <td>
+                <a class="btn btn-info" href="Bank/Edit/@bankBranch.BankId">Edit Branch</a>
+            </td>
             
         </tr>
     }
 
 </table>
 
-<a class="btn btn-info" href="Bank/Create">Add Branch</a>
+    <a class="btn btn-info" href="Bank/Create">Add Branch</a>
