@@ -6,7 +6,7 @@ namespace Bank_Branch.Models
     {
         [Required]
         public string Name { get; set; }
-        [Required]
+        [Required (ErrorMessage ="The civil id is already existed")]
         public int CivilId { get; set; }
         [Required]
         public string Position { get; set; }

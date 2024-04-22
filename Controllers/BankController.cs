@@ -6,7 +6,7 @@ namespace Bank_Branch.Controllers
 {
     public class BankController : Controller
     {
-        
+
 
         public IActionResult Index()
         {
@@ -16,7 +16,7 @@ namespace Bank_Branch.Controllers
         public IActionResult Details(int id)
         {
             var context = new BankContext();
-            var banks = context.bankBranchTable.Include(r=> r.Employees).SingleOrDefault(a => a.BankId == id);
+            var banks = context.bankBranchTable.Include(r => r.Employees).SingleOrDefault(a => a.BankId == id);
             if (banks == null)
             {
                 return RedirectToAction("Index");
@@ -74,7 +74,7 @@ namespace Bank_Branch.Controllers
             var employeeCount = form.EmployeeCount;
             if (ModelState.IsValid)
             {
-             
+
                 context.bankBranchTable.Add(new BankBranch
                 {
                     LocationName = locationName,
@@ -87,7 +87,7 @@ namespace Bank_Branch.Controllers
             {
                 return View(form);
             }
-           
+
 
             //bankBranches.Add(new BankBranch()
             //{
@@ -113,7 +113,7 @@ namespace Bank_Branch.Controllers
             if (ModelState.IsValid)
             {
                 var bank = context.bankBranchTable.Find(id);
-               if (bank != null)
+                if (bank != null)
                 {
                     bank.BankId = bankId;
                     bank.LocationName = locationName;
@@ -122,7 +122,7 @@ namespace Bank_Branch.Controllers
                     bank.EmployeeCount = employeeCount;
                     context.SaveChanges();
                 }
-               
+
             }
             else
             {
@@ -162,32 +162,41 @@ namespace Bank_Branch.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddEmployee(int id,AddEmployeeForm form)
+        public IActionResult AddEmployee(int id, AddEmployeeForm form)
         {
-            var context = new BankContext();
-
-            var name = form.Name;
-            var civilId = form.CivilId;
-            var position = form.Position;
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-               var bank = context.bankBranchTable.Find(id);
-               bank.Employees.Add(new Employee
+                try
                 {
-                Name = name,
-                CivilId = civilId,
-                Position = position
-                });
-            context.SaveChanges();
+                    var context = new BankContext();
+
+                    var name = form.Name;
+                    var civilId = form.CivilId;
+                    var position = form.Position;
+                    var bank = context.bankBranchTable.Find(id);
+
+                    bank.Employees.Add(new Employee
+                    {
+                        Name = name,
+                        CivilId = civilId,
+                        Position = position
+                    });
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.AddModelError("CivilId", "This Civil id is already in the system");
+                    return View(form);
+                }
             }
             else
             {
                 return View(form);
             }
+            return RedirectToAction("Details", new { id = id });
 
-            return RedirectToAction("Details", new { id = id});
         }
-    }
 
+    }
 }
 

@@ -46,11 +46,16 @@ namespace Bank_Branch.Models
                     BranchManager = "Salem Ali",
                     EmployeeCount = 35
                 });
+            modelBuilder.Entity<Employee>()
+               .HasIndex(e => e.CivilId)
+               .IsUnique(true);
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=asb.db");
         }
+      
     }
 }
