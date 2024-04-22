@@ -2,9 +2,37 @@
 <h1>Bank Details</h1>
 
 <ul>
-    <li>@Model.BankId</li>
-    <li>@Model.LocationName</li>
-    <li>@Model.LocationURL</li>
-    <li>@Model.BranchManager</li>
-    <li>@Model.EmployeeCount</li>
+    <li>Bank ID: @Model.BankId</li>
+    <li>Location Name: @Model.LocationName</li>
+    <li>Branch Manager: @Model.BranchManager</li>
+    <li>Employee Count: @Model.EmployeeCount</li>
+    <li>Location in Maps:<a href="@Model.LocationURL" target="_blank">@Model.LocationURL</li>
 </ul>
+<div>
+    <table class="table">
+        <tr>
+            <td>Employee Name</td>
+            <td>Employee Position</td>
+            <td>Employee Civil ID</td>
+            <td>Employee ID</td>
+
+        </tr>
+
+
+
+        @foreach (var employee in Model.Employees)
+        {
+            <tr>
+                <td>@employee.Name</td>
+                <td>@employee.Position</td>
+                <td>@employee.CivilId</td>
+                <td>@employee.Id</td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+<div>
+    <a class="btn btn-info" href="/Bank/AddEmployee/@Model.BankId">Add Employee</a>
+</div>

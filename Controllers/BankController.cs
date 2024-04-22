@@ -1,5 +1,6 @@
 ﻿using Bank_Branch.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bank_Branch.Controllers
 {
@@ -15,7 +16,7 @@ namespace Bank_Branch.Controllers
         public IActionResult Details(int id)
         {
             var context = new BankContext();
-            var banks = context.bankBranchTable.SingleOrDefault(a => a.BankId == id);
+            var banks = context.bankBranchTable.Include(r=> r.Employees).SingleOrDefault(a => a.BankId == id);
             if (banks == null)
             {
                 return RedirectToAction("Index");
@@ -154,6 +155,39 @@ namespace Bank_Branch.Controllers
         //}
 
 
+        [HttpGet]
+        public IActionResult AddEmployee()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddEmployee(int id,AddEmployeeForm form)
+        {
+            var context = new BankContext();
+
+            var name = form.Name;
+            var civilId = form.CivilId;
+            var position = form.Position;
+            if (ModelState.IsValid)
+            {
+               var bank = context.bankBranchTable.Find(id);
+               bank.Employees.Add(new Employee
+                {
+                Name = name,
+                CivilId = civilId,
+                Position = position
+                });
+            context.SaveChanges();
+            }
+            else
+            {
+                return View(form);
+            }
+
+            return RedirectToAction("Details", new { id = id});
+        }
     }
+
 }
 

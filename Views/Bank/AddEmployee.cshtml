@@ -1,0 +1,23 @@
+﻿@model Employee
+
+<h1>Add Employee</h1>
+
+<form method="post" action="@Html.BeginForm("AddEmployee", "Bank", FormMethod.Post)">
+ 
+    <div class="form-group">
+        <label for="Name">Name:</label>
+        <input type="text" id="Name" name="Name" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="CivilId">Civil ID:</label>
+        <input type="text" id="CivilId" name="CivilId" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Position">Position:</label>
+        <input type="text" id="Position" name="Position" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Employee</button>
+</form>

@@ -14,6 +14,8 @@ namespace Bank_Branch.Models
         public string BranchManager { get; set; }
         [Required]
         public int EmployeeCount {  get; set; }
-        
+
+        [Required]
+        public List<Employee> Employees { get; set;}=new List<Employee>();
     }
 }
