@@ -7,15 +7,22 @@ namespace Bank_Branch.Controllers
     public class BankController : Controller
     {
 
+        private readonly BankContext _context;
+
+        public BankController(BankContext context)
+        {
+            _context = context;
+        }
+
 
         public IActionResult Index()
         {
-            var context = new BankContext();
+            var context = _context;
             return View(context.bankBranchTable.ToList());
         }
         public IActionResult Details(int id)
         {
-            var context = new BankContext();
+            var context = _context;
             var banks = context.bankBranchTable.Include(r => r.Employees).SingleOrDefault(a => a.BankId == id);
             if (banks == null)
             {
@@ -26,7 +33,7 @@ namespace Bank_Branch.Controllers
 
         public IActionResult Search(string searchTerm)
         {
-            using (var context = new BankContext())
+            using (var context = _context)
             {
                 var branches = context.bankBranchTable.AsQueryable();
 
@@ -50,7 +57,7 @@ namespace Bank_Branch.Controllers
         public IActionResult Edit(int id)
         {
             var form = new EditBranch();
-            var context = new BankContext();
+            var context = _context;
             var banks = context.bankBranchTable.SingleOrDefault(a => a.BankId == id);
             if (banks == null)
             {
@@ -66,7 +73,7 @@ namespace Bank_Branch.Controllers
         [HttpPost]
         public IActionResult Create(NewBranchForm form)
         {
-            var context = new BankContext();
+            var context = _context;
 
             var locationName = form.LocationName;
             var locationURL = form.LocationURL;
@@ -103,7 +110,7 @@ namespace Bank_Branch.Controllers
         [HttpPost]
         public IActionResult Edit(EditBranch form, int id)
         {
-            var context = new BankContext();
+            var context = _context;
 
             var bankId = form.BankId;
             var locationName = form.LocationName;
@@ -168,7 +175,7 @@ namespace Bank_Branch.Controllers
             {
                 try
                 {
-                    var context = new BankContext();
+                    var context = _context;
 
                     var name = form.Name;
                     var civilId = form.CivilId;

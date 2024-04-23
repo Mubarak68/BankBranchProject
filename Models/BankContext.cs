@@ -52,10 +52,13 @@ namespace Bank_Branch.Models
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=asb.db");
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlite("Data Source=asb.db");
+        //}
+        public BankContext(DbContextOptions<BankContext> options) : base(options) 
+        { 
+        
         }
-      
     }
 }
