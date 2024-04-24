@@ -20,7 +20,7 @@ namespace Bank_Branch.Controllers
             //var context = _context;
             //return View(context.bankBranchTable.ToList());
             var viewModel = new BankDashboardViewModel();
-            viewModel.BranchList = _context.bankBranchTable.ToList();
+            viewModel.BranchList = _context.bankBranchTable.Include(r => r.Employees).ToList();
             viewModel.TotalBranches = _context.bankBranchTable.Count();
             viewModel.TotalEmployee = _context.Employees.Count();
             viewModel.BranchWithMostEmployee = _context.bankBranchTable.OrderByDescending(b => b.Employees.Count).FirstOrDefault();

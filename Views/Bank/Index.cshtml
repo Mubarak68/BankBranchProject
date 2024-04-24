@@ -10,8 +10,6 @@
 
     
  *@
-
-@model BankDashboardViewModel
 <div class="col">
 <div class="col col-md-12">
     <div class="card">
@@ -76,7 +74,7 @@
                                 <td><a href="@bankBranch.LocationURL" target="_blank">Google Maps</a></td>
                                 <td>@bankBranch.BranchManager</td>
                                 <td>@bankBranch.BankId</td>
-                                <td>@bankBranch.EmployeeCount</td>
+                                <td>@bankBranch.Employees.Count</td>
                                 <td>
                                     <a class="btn btn-info" href="Bank/Edit/@bankBranch.BankId">Edit Branch</a>
                                 </td>
