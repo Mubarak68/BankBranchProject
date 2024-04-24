@@ -1,4 +1,4 @@
-﻿@model List<BankBranch>
+﻿@* @model List<BankBranch>
 <h1>Bank Branchs List</h1>
 <form method="get" action="@Url.Action("search","Bank")">
     <div class="input-group mb-3">
@@ -6,33 +6,95 @@
         <button class="btn btn-outline-secondary" type="sumbit">Search</button>
     </div>
 </form>
-<table class="table">
-    <tr>
-        <td>Branch Name</td>
-        <td>Branch Location</td>
-        <td>Branch Manager</td>
-        <td>Bank ID</td>
-        <td>Employee Count</td>
-        
-    </tr>
 
- 
 
-    @foreach (var bankBranch in Model)
-    {
-        <tr>
-            <td><a href="/Bank/Details/@bankBranch.BankId">@bankBranch.LocationName</a></td>
-            <td><a href="@bankBranch.LocationURL" target="_blank">Google Maps</a></td>
-            <td>@bankBranch.BranchManager</td>
-            <td>@bankBranch.BankId</td>
-            <td>@bankBranch.EmployeeCount</td>
-            <td>
-                <a class="btn btn-info" href="Bank/Edit/@bankBranch.BankId">Edit Branch</a>
-            </td>
-            
-        </tr>
-    }
+    
+ *@
 
-</table>
+@model BankDashboardViewModel
+<div class="col">
+<div class="col col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Total Branches</h5>
+            <p class="card-text">@Model.TotalBranches</p>
+        </div>
+    </div>
+</div>
+<div>
+    <p>
 
-    <a class="btn btn-info" href="Bank/Create">Add Branch</a>
+    </p>
+</div>
+    <div class="col col-md-12">
+        <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Total Employee</h5>
+            <p class="card-text">@Model.TotalEmployee</p>
+        </div>
+    </div>
+</div>
+    <div>
+        <p>
+
+        </p>
+    </div>
+    <div class="col col-md-12">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Branch With Most Employee</h5>
+                <p class="card-text">@Model.BranchWithMostEmployee.LocationName</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p>
+
+        </p>
+    </div>
+    <div class="col col-md-12">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Branch List</h5>
+                <p class="card-text">
+                    <table class="table">
+                        <tr>
+                            <td>Branch Name</td>
+                            <td>Branch Location</td>
+                            <td>Branch Manager</td>
+                            <td>Bank ID</td>
+                            <td>Employee Count</td>
+
+                        </tr>
+
+
+
+                        @foreach (var bankBranch in Model.BranchList)
+                        {
+                            <tr>
+                                <td><a href="/Bank/Details/@bankBranch.BankId">@bankBranch.LocationName</a></td>
+                                <td><a href="@bankBranch.LocationURL" target="_blank">Google Maps</a></td>
+                                <td>@bankBranch.BranchManager</td>
+                                <td>@bankBranch.BankId</td>
+                                <td>@bankBranch.EmployeeCount</td>
+                                <td>
+                                    <a class="btn btn-info" href="Bank/Edit/@bankBranch.BankId">Edit Branch</a>
+                                </td>
+
+                            </tr>
+                        }
+
+                    </table>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <p>
+
+    </p>
+</div>
+<div>
+<a class="btn btn-info" href="Bank/Create">Add Branch</a>
+</div>

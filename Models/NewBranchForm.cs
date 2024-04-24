@@ -16,7 +16,7 @@ namespace Bank_Branch.Models
         [Display(Name = "Branch Manager: ")]
         public string BranchManager { get; set; }
 
-        [Range(1,100)]
+        [Range(1,10000)]
         [Display(Name = "Employee Count: ")]
         public int EmployeeCount { get; set; }
     }

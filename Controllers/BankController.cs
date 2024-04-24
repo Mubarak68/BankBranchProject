@@ -17,9 +17,17 @@ namespace Bank_Branch.Controllers
 
         public IActionResult Index()
         {
-            var context = _context;
-            return View(context.bankBranchTable.ToList());
+            //var context = _context;
+            //return View(context.bankBranchTable.ToList());
+            var viewModel = new BankDashboardViewModel();
+            viewModel.BranchList = _context.bankBranchTable.ToList();
+            viewModel.TotalBranches = _context.bankBranchTable.Count();
+            viewModel.TotalEmployee = _context.Employees.Count();
+            viewModel.BranchWithMostEmployee = _context.bankBranchTable.OrderByDescending(b => b.Employees.Count).FirstOrDefault();
+            
+            return View(viewModel);
         }
+
         public IActionResult Details(int id)
         {
             var context = _context;
@@ -90,6 +98,7 @@ namespace Bank_Branch.Controllers
                     EmployeeCount = employeeCount
                 });
                 context.SaveChanges();
+                return RedirectToAction("Index");
             }
             {
                 return View(form);
