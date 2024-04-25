@@ -23,7 +23,10 @@ namespace Bank_Branch.Controllers
             viewModel.BranchList = _context.bankBranchTable.Include(r => r.Employees).ToList();
             viewModel.TotalBranches = _context.bankBranchTable.Count();
             viewModel.TotalEmployee = _context.Employees.Count();
-            viewModel.BranchWithMostEmployee = _context.bankBranchTable.OrderByDescending(b => b.Employees.Count).FirstOrDefault();
+            viewModel.BranchWithMostEmployee = _context
+                .bankBranchTable
+                .OrderByDescending(b => b.Employees.Count)
+                .FirstOrDefault();
             
             return View(viewModel);
         }
@@ -212,7 +215,14 @@ namespace Bank_Branch.Controllers
             return RedirectToAction("Details", new { id = id });
 
         }
+        public IActionResult Delete(int id)
+        {
+            var delete = _context.bankBranchTable.Find(id);
+            _context.bankBranchTable.Remove(delete);
+            _context.SaveChanges();
 
+            return RedirectToAction("Index");
+        }
     }
 }
 

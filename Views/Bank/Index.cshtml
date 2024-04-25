@@ -77,9 +77,12 @@
                                 <td>@bankBranch.Employees.Count</td>
                                 <td>
                                     <a class="btn btn-info" href="Bank/Edit/@bankBranch.BankId">Edit Branch</a>
+                                    <div>
+                                        <a class="btn btn-outline-warning" asp-action="Delete" asp-route-id="@bankBranch.BankId">Delete</a>
+                                    </div>
                                 </td>
-
                             </tr>
+                           
                         }
 
                     </table>

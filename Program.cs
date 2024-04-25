@@ -12,14 +12,13 @@ builder.Services
     .UseSqlite(builder.Configuration
     .GetConnectionString("DefaultConnection")));
 
-builder.Services.AddLocalization(options => options.ResourcesPath = "ResourcesLanguage");
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddControllersWithViews()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization();
 
 
 var app = builder.Build();
-
 
 var supportedCultures = new[] { "en", "ar" };
 var requestLocalizationOptions = new RequestLocalizationOptions()
