@@ -186,6 +186,7 @@ namespace Bank_Branch.Controllers
             if(ModelState.IsValid)
             {
                 try
+
                 {
                     var context = _context;
 
